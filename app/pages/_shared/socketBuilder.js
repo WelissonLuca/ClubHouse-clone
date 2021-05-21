@@ -1,3 +1,5 @@
+import { constants } from './constants'
+
 export default class SocketBuilder{
   constructor({ socketUrl }) {
     this.socketUrl = socketUrl
