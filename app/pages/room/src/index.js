@@ -1,3 +1,16 @@
+import { constants } from "../../_shared/constants.js";
+import SocketBuilder from "../../_shared/socketBuilder.js";
+
+
+const socketBuilder = new socketBuilder({
+  socketUrl: constants.socketUrl,
+  namespace: constants.socketNamesSpaces.room
+})
+
+const socket = socketBuilder
+  .setOnUserConnected((user) => console.log('user connected', user))
+  .setOnUserDisconnected((user) => console.log('user disconnected', user))
+  .build()
 
 
 
@@ -11,3 +24,7 @@ const user = {
 	username: "Welisson Luca",
 };
 
+
+socket.emit(constants.events.JOIN_ROOM, {
+  user, room
+});

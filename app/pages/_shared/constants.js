@@ -1,12 +1,13 @@
 
 export const constants = {
   socketUrl: 'https://localhost',
-  socketNameSpaces: {
+  socketNamesSpaces: {
     room: 'room',
     lobby: 'lobby'
   },
   events: {
     USER_CONNECTED: 'userConnection',
-    USER_DISCONNECTED: 'userDisconnection'
+    USER_DISCONNECTED: 'userDisconnection',
+    JOIN_ROOM: 'joinRoom'
   }
 }

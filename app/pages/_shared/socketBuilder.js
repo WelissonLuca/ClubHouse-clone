@@ -1,20 +1,32 @@
-import { constants } from './constants'
+import { constants } from "./constants";
 
-export default class SocketBuilder{
-  constructor({ socketUrl }) {
-    this.socketUrl = socketUrl
+export default class SocketBuilder {
+	constructor({ socketUrl, namespace }) {
+    this.socketUrl = `${socketUrl}/${namespace}`;
+    this.onUserConnected = () => {};
+    this.onUserDisconnected = () => {};
+	}
+  setOnUserConnected(fn) {
+    this.onUserConnected = fn;
+
+    return this
   }
-  build() {
-   const socket = globalThis.io.connect(this.socketUrl, {
-			withCredentials: false
-   });
+
+  setOnUserDisconnected(fn) {
+    this.onUserDisconnected = fn;
     
-    socket.io('connection', () => console.log())
-    socket.io('userConnected', () => console.log())
-    socket.io('userDisconnect', () => console.log())
+    return this
+  }
 
-    return socket;
- }
+	build() {
+		const socket = globalThis.io.connect(this.socketUrl, {
+			withCredentials: false,
+		});
+
+		socket.io("connection", () => console.log("conectei"));
+		socket.io(constants.events.USER_CONNECTED,this.onUserConnected);
+		socket.io(constants.events.USER_DISCONNECTED, this.onUserDisconnected);
+
+		return socket;
+	}
 }
-
-
