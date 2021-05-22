@@ -18,9 +18,8 @@ export default class RoomController {
 		this.socket.emit(constants.events.JOIN_ROOM, { user, room });
 	}
 	_setupViewEvents() {
-    this.view.updateUserImage(this.roominfo.user);
-    this.view.updateRoomTopic(this.roominfo.room);
-
+		this.view.updateUserImage(this.roominfo.user);
+		this.view.updateRoomTopic(this.roominfo.room);
 	}
 	_setupSocket() {
 		return this.socketBuilder
@@ -39,6 +38,11 @@ export default class RoomController {
 	}
 
 	onUserConnected() {
-		return user => console.log("user connected!", user);
+		return data => {
+			const attendee = new Attendee(data);
+
+			console.log("user connected !", attendee);
+			this.view.addAttendeeOnGrid(attendee);
+		};
 	}
 }

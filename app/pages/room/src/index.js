@@ -23,4 +23,5 @@ const dependencies = {
 	roomInfo,
 };
 
-const roomController = RoomController(dependencies);
+await RoomController.initialize(dependencies);
+
